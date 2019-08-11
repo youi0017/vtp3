@@ -6,17 +6,15 @@
  *
  * chy
  */
-class Email extends \kernel\BaseLib
+class Email
 {
-	// 此处必需重写$_mine 20190811160007
-	protected static $_mine;
+	use \Kernel\traits\Baselib;
 
 	//记录错误
-	private $emsg='';
+	private $cnf,$emsg='';
 
-	public function __construct(array $prms=[])
-	{
-		parent::__construct($prms);
+	public function __construct(array $keyVals=[])
+	{		
 		//载入配置
 		$this->cnf = json_decode(\EMAIL_CNF);
 	}

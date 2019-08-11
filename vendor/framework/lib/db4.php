@@ -18,10 +18,9 @@
  	use \Lib\Db4 as DB;
  * 
  */
-class Db4 extends \kernel\BaseLib
+class Db4
 {
-	// 此处必需重写$_mine 20190811160007
-	protected static $_mine;
+	use \Kernel\traits\Baselib;
 
 	private $err='ok';
 	private $pdo;

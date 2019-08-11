@@ -6,8 +6,7 @@
  **/
 class Verify extends \kernel\BaseLib
 {
-    // 此处必需重写$_mine 20190811160007
-    protected static $_mine;
+    use \Kernel\traits\Baselib;
 
 	public static function NAMES()
 	{

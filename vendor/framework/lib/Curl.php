@@ -4,10 +4,9 @@
  * chy
  * 20150101 LM:20170716
  */
-class Curl extends \kernel\BaseLib
+class Curl
 {
-	// 此处必需重写$_mine 20190811160007
-	protected static $_mine;
+	use \Kernel\traits\Baselib;
 
 	/**
 	 * curl主采集程序
