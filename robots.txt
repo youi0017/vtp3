@@ -1,0 +1,35 @@
+#baidu
+User-agent: Baiduspider
+Disallow: /cgi-bin/
+
+#sogou
+User-agent: sogou spider
+Disallow: /cgi-bin/
+
+#360
+User-agent: 360Spider
+Disallow: /cgi-bin/
+
+#soso
+User-agent: Sosospider
+Disallow: /cgi-bin/
+
+#youdao
+User-agent: YodaoBot
+Disallow: /cgi-bin/
+
+#google
+User-agent: Googlebot
+Disallow: /cgi-bin/
+
+#Bingbot
+User-agent: Bingbot
+Disallow: /cgi-bin/
+
+#yahoo
+User-agent: Slurp
+Disallow: /cgi-bin/
+
+#others
+User-agent: *
+Disallow: /

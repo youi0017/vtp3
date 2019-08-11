@@ -1,0 +1,5 @@
+{
+    "require": {
+        "simplesoftwareio/simple-qrcode":  "2.0.0"
+    }
+}

@@ -1,0 +1,15 @@
+<Files ~ "^(.htaccess|.htpasswd|my.sevrconf)$">
+Require all denied
+</Files>
+
+#控制访问
+Options +Indexes +FollowSymlinks
+
+#重置默认文件
+DirectoryIndex abc.php index.php index.html index.htm
+
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([a-zA-Z0-9_\-,]{0,}|)/?([a-zA-Z0-9_\-]{0,}|)/?(\.html|\.htm|\.asp|\.jsp)?$ abc.php/$1/$2 [QSA,PT,L]
+

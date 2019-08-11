@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>highlight</title>
+<link rel="stylesheet" type="text/css" href="prism-night.css"/>
+</head>
+<body>
+
+<h1>代码高亮着色显行号</h1>
+<p>官方地址：https://prismjs.com/download.html</p>
+<pre class="line-numbers" data-start='50' data-line="3,7,10-12" style="white-space:pre-wrap" >
+<code class="language-php">functionset_exception_handler('\Kernel\Error\Erun::dealExpt');
+set_error_handler('\Kernel\Error\Erun::dealErr0');
+<b color="red">register_shutdown_function('\Kernel\Error\Erun::dealErr1');<b>
+return;
+//显示 或 记录 都开启时，才开启异常并输出
+if($this->eShow() || $this->eLog())
+{
+	set_exception_handler('\Kernel\Error\Erun::dealExpt');
+	set_error_handler('\Kernel\Error\Erun::dealErr0');
+	register_shutdown_function('\Kernel\Error\Erun::dealErr1');
+}
+else
+{
+	// php不再报告错误
+	error_reporting(0);
+}</code>
+</pre>
+
+
+<br/>
+
+
+<pre class="js">
+<code class="language-js">
+//全局组件
+Vue.component('myHeader',{
+	template:'<H1>{{hder}}</H1>'
+	,props: ['hder']
+})
+
+//取得实例，并创建局部组件
+var v1 = new Vue({
+	el:'#ul'
+	,components:{
+		myBtm:{
+			template:"<div><h2>this is footer</h2><b style='color:red'>created by chy 20190526</p></b></div>"
+		}
+		,myBox:{
+			template:"#myBox"
+			,props: ['tt', 'ct', 'row']
+		}
+	}
+	,data:{
+		tit:'tit123Val'
+		,cnt:'cnt123Val'
+		,header:'myHeaderVal'
+		,obj:{
+			usr:{msg:'ok', hide:'true'}
+			,pwd:{msg:'ok', hide:'true'}
+			,yzm:{msg:'ok', hide:'true'}
+		}
+	}
+	
+})
+</code>
+</pre>
+<script type="text/javascript" src="../jquery.min.js"></script>
+<script type="text/javascript" src="prism-Highlight-Numbers.js"></script>
+<script type="text/javascript">
+
+$('.js').addClass("line-numbers").css("white-space", "pre-wrap");
+
+</script>
+</body>
+</html>

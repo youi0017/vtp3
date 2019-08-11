@@ -1,0 +1,7 @@
+<Files ~ "^(.htaccess|.htpasswd|my.sevrconf)$">
+Require all denied
+</Files>
+
+#控制访问
+Options -Indexes -FollowSymlinks
+
