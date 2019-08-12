@@ -108,7 +108,7 @@ class Erun extends \ErrorException
 	   	if($error) 
 	    {
 			//使用异常，接管错误：
-			echo '<h1 color="red">dealErr1 错误入口</h1>';
+			// echo '<h1 color="red">dealErr1 错误入口</h1>';
 			// var_dump($error);
 			//注：第二个参数用于区分错误等级
 		    $expt =  new self($error['message'], $error['type'], $error['type'], $error['file'], $error['line']);

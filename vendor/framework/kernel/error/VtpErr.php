@@ -21,8 +21,8 @@ class VtpErr
 	public static function exc()
 	{
 		//显示控制
-		//1. 关闭php系统错误/异常显示
-		error_reporting(1);
+		//1. 错误报告级别(关闭php系统错误/异常显示)
+		//error_reporting(0);
 
 		//2. 错误显示控制
 		if(\ERR_ON>0){
