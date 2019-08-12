@@ -1,8 +1,8 @@
 <?php namespace kernel\error;
 use \kernel\Rtn;
 /*
- * 开发者
- *
+ * 开发者 错误类
+ * 注：为减轻系统压力，此类暂留，但不使用 20190812163109
  */
 
 class Eusr extends \Exception

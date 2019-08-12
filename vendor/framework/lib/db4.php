@@ -246,7 +246,7 @@ class Db4
 		$arr['rows'] = DB::MINE()->P($sql, [], $arr['page']);
 		var_dump($arr);
 	*/
-	public function P($sql, $row=[], &$pgInf=[])
+	public function P($sql, $row=[], &$pgInf=[], $rType='object')
 	{
 		//显示条数(传入优先，配置其次)
 		if(isset($_GET['sn']) && $_GET['sn']>0)
@@ -272,7 +272,7 @@ class Db4
 		$limit=($pgInf[$key]-1)*$pgInf['show'];
 		$limit=" limit {$limit}, {$pgInf['show']}";
 
-		return $this->R($sql.$limit, $row);
+		return $this->R($sql.$limit, $row, 2, $rType);
 	}
 
 	//返回错误信息 20180614
