@@ -7,10 +7,11 @@
 <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css" href="js/prism/prism-night.css"/>
 <style type="text/css">
-body{max-width:900px; padding:0 10px 10px; margin:0 auto; background-color:#FFF;}
-#header{margin:10px 0; border-bottom: 1px solid #DDD; }
-/*#info{padding:10px; background-color:#EEE;}*/
-
+/*body{max-width:900px; padding:0 10px 10px; margin:0 auto; background-color:#FFF;}*/
+#header{margin:10px 0; padding:10px 0; border-bottom: 1px solid #DDD; }
+#info{list-style-type:none;}
+#info li{line-height:2;}
+.msg{margin:20px 0;}
 
 
 /*书签样式 20190616*/
@@ -54,26 +55,37 @@ body{max-width:900px; padding:0 10px 10px; margin:0 auto; background-color:#FFF;
     background-color: #d4edda;
     border-color: #c3e6cb;
 }
+
+.f_r{float:right;}
 </style>
 </head>
-<body>
+<body class="container">
 <!--  header -->
-<div id="header" class="h5">
+<div id="header">
 	<span class="f_r"><?=date('Y-m-d H:i:s');?></span>
-	<b>Vtp调试模式：错误/异常页面输出</b>
+	<span>Vtp调试模式：错误/异常页面输出</span>
 </div>
 
 <!--  main message -->
-<h2><?=$message;?></h2>
+<div class="msg h2"><?=$message;?></div>
 
 
 <!--  info message -->
-<div id="info" class="mark danger">
-	<b>错误类型: </b> <?=$etype;?><br/>
-	<b>所在行数: </b> 第 <span class="code"><?=$line;?></span> 行<br/>
-	<b>所在文件: </b> <span class="code"><?=$file;?></span><br/>
-	<b>当前页面: </b> 控制器：<span class="code"><?=CTL;?></span> ，执行器：<span class="code"><?=ACT;?></span><br/>
-</div>
+<ul id="info" class="mark danger">
+	<li>
+		<b>错误类型: </b> <?=$etype;?>
+	</li>
+	<li>
+		<b>所在行数: </b> 第 <span class="code"><?=$line;?></span> 行
+	</li>
+	<li>
+		<b>所在文件: </b> <span class="code"><?=$file;?></span><br/>
+	</li>
+	<li>
+		<b>当前页面: </b> 控制器：<span class="code"><?=CTL;?></span> ，执行器：<span class="code"><?=ACT;?></span>
+	</li>
+
+</ul>
 <pre class="line-numbers" data-start='<?=$line0;?>' data-line="<?=$line;?>" style="white-space:pre-wrap" >
 <code class="language-php"><?php foreach($lines as $li){echo htmlentities($li);}?></code>
 </pre>
