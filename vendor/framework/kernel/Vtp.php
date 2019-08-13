@@ -42,7 +42,8 @@
  * 1. "定向模式"为url优化模式，为SEO设计，需了解apache的重定向
  * 2. "中继模式"为调试开发模式，使用简单
  * 3. 两种模式都可：既不影响URI参数，又可使用传统的get传参法
- * 	
+ * 
+ * 	20190813145303 过滤uri中后缀名
  */
 //header("Content-type: text/html; charset=utf-8");  
 class Vtp
@@ -71,18 +72,20 @@ class Vtp
 		$prm=null;//参数为空 20161002
 		$pn=(isset($_GET['pn'])&&$_GET['pn']>1) ? floor($_GET['pn']) : 1;//页码
 
-		//var_dump($_SERVER['QUERY_STRING'], file_get_contents("php://input"));exit;
-
+		// var_dump($_SERVER['PATH_INFO']);exit;
 		if(isset($_SERVER['PATH_INFO']))
 		{
-			$all = array_values(array_filter(explode('/', $_SERVER['PATH_INFO'])));
-			//var_dump($all);
+			$all = $_SERVER['PATH_INFO'];
+			//去除后缀名
+			$all = str_replace(strrchr($all, '.'),'',$all); 
+			//过滤空段
+			$all = array_values(array_filter(explode('/', $all)));
+			// var_dump($all);exit;
 			
 			//控制器与影响器
 			if(isset($all[0]))
 			{
 				$dir = array_filter(explode('-', $all[0]));
-				//if(!empty($dir[0])) $ctl=str_replace(',', '\\', $dir[0]);
 				if(!empty($dir[0])) $ctl=$dir[0];
 				if(!empty($dir[1])) $act=$dir[1];
 				unset($dir);
@@ -102,11 +105,9 @@ class Vtp
 
 		//定义全局参数
 		define('CTL', $ctl);//
-		define('ACT', $act);//
-		
+		define('ACT', $act);//		
 
 		// var_dump($_GET, $ctl, $act, $prm, $pn);exit;
-
 		// \cls\auth::exc();//用在所用的控制器内20180127
 
 
@@ -114,9 +115,9 @@ class Vtp
 		$ctl = '\\ctl\\'.str_replace(',', '\\', $ctl);
 		if(cls_file_exists($ctl)==false)
 		{
-			//throw new \Exception('“404 无效控制器 - '.CTL.'”');
 			Rtn::E404('“404 无效控制器 - '.CTL.'”');
 		}
+
 		//var_dump('$ctl');exit;
 		$ctlObj = new $ctl($prm);
 		//var_dump($ctlObj);exit;
@@ -124,10 +125,7 @@ class Vtp
 		//_index为控制器父类中的万能方法
 		if(!method_exists($ctlObj, $act)) $act = '_index';
 		//将执行结果返回
-		echo call_user_func_array([$ctlObj, $act], $_GET);
-
-
-		
+		echo call_user_func_array([$ctlObj, $act], $_GET);		
 	}
 
 }

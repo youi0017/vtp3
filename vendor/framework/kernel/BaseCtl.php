@@ -1,5 +1,5 @@
 <?php namespace Kernel;
-/*
+/**
  * 控制器基类
  * CM: 20160321
  * LM: 20161007 在构造函数中加入unset，删除构架的参数__dir 和 __prm
@@ -7,7 +7,7 @@
  * 20170731 更改命名空间为clib
  * 20190519 多向继承模版类
  *
-*/
+ */
 
 abstract class BaseCtl
 {
@@ -27,16 +27,7 @@ abstract class BaseCtl
 	//影响重置器: 默认影响器
 	public function _index()
 	{
-		//exit('没有找到执行器: '.ACT);//CTL 
-		//throw new \Exception('“404 无效执行 - '.ACT.'”');
 		Rtn::e404('无效执行器 - '.ACT);
-	}
-
-
-	//控制器视图解析 20190519
-	protected static function view($tplName, $tplExt='', $isSysView=false)
-	{
-		return \Kernel\Assign::view($tplName, $tplExt, $isSysView);
 	}
 
 }
