@@ -1,5 +1,5 @@
 {
     "require": {
-        "intervention/image": "^2.4"
+        "intervention/image":  "v2.5.0"
     }
 }

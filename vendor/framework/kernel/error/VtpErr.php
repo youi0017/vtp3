@@ -116,8 +116,8 @@ class VtpErr
 		// var_dump($data);exit;
 		//2. 解析数据并载入视图
 		unset($expt);//清除释放内存
-		$tpl = new \kernel\Templete;
-		$tpl->assign($data)->display('err/erun.tpl', true);
+		$view = new \kernel\View;
+		$view->assign($data)->display('err/erun.tpl', true);
 		exit;
 	}
 

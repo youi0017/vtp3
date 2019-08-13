@@ -237,7 +237,7 @@ class Rtn
 	//通用错误方法
 	protected static function EX(array $eArr)
 	{
-		$tpl = new Templete;
+		$tpl = new View;
 		$tpl->assign($eArr)->display('err/dft.tpl', true);
 		exit;		
 	}
