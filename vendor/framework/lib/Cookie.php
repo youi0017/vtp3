@@ -8,7 +8,7 @@
 	方法二：
 		Lib\Cookie::mine(['ckey'=>'uid'])->cGet();
 */
-class Cookie extends \kernel\BaseLib
+class Cookie
 {
 	use \Kernel\traits\Baselib;
 

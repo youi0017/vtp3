@@ -4,7 +4,7 @@
  * 验证库
  * 20190521
  **/
-class Verify extends \kernel\BaseLib
+class Verify
 {
     use \Kernel\traits\Baselib;
 

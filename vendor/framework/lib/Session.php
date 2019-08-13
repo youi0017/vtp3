@@ -4,7 +4,7 @@
  * 会话session
  * 20180606
  */
-class Session extends \kernel\BaseLib
+class Session
 {
 	use \Kernel\traits\Baselib;
 	
