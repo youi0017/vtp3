@@ -246,7 +246,7 @@ class Db4
 		$arr['rows'] = DB::MINE()->P($sql, [], $arr['page']);
 		var_dump($arr);
 	*/
-	public function P($sql, $row=[], &$pgInf=[], $rType='object')
+	public function P($sql, $row=[], &$pgInf=[], $rType='array')
 	{
 		//显示条数(传入优先，配置其次)
 		if(isset($_GET['sn']) && $_GET['sn']>0)

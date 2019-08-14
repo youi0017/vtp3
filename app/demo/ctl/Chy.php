@@ -1,5 +1,4 @@
 <?php namespace ctl;
-use \kernel\Err;
 use \kernel\Rtn;
 use \kernel\Request;
 use \lib\DB4 as DB;
@@ -10,7 +9,7 @@ class Chy extends \kernel\BaseCtl
 {
 	public function index()
 	{
-		return '<h1>welcome to chy funs！</h1>';
+		return '<h1>welcome to chy funs－99999999999999！</h1>';
 	}
 
 	//错误的使用 20190619 lm:20190811114918
@@ -24,10 +23,10 @@ class Chy extends \kernel\BaseCtl
 		*/
 
 		// 手动调用404页
-		\kernel\Rtn::e404();	
+		// \kernel\Rtn::e404();	
 		
 		//输出一个轻型错误页
-		Err::alert( new \exception('发出错误') );
+		Rtn::alert( new \exception('发出错误') );
 
 		//运行中的错误与异常
 		//echo xxx();//调用不存在的函数

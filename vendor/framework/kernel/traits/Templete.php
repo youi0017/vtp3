@@ -23,7 +23,7 @@ trait Templete
 		if(is_array($vals)){
 			$this->dArr = array_merge($this->dArr, $vals);
 		}
-		elseif(isset($v) && is_string($vals))
+		elseif(is_string($vals))
 		{
 			$this->dArr[$vals]=$v;
 		}

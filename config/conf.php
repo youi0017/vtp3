@@ -10,7 +10,7 @@
  */
 
 //1. 需修改的定义
-const PJ_NANE='demo';//当前生效APP的名字
+const PJ_NAME='qyweb';//当前生效APP的名字
 
 //2. 根目录 & 系统分区目录
 //外部公共目录
@@ -20,7 +20,7 @@ define('WR', substr(str_replace( "\\", '/', dirname(__FILE__) ),0,-6) );
 //框架核心目录
 define('FW', WR.'vendor/framework/');//framework
 //当前app目录
-define('PJ', WR.'app/'.PJ_NANE.'/');
+define('PJ', WR.'app/'.PJ_NAME.'/');
 //公共静态资源目录
 define('ST',  WR.W3.'/static/');
 

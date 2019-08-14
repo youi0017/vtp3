@@ -14,7 +14,7 @@ const ERR_ON = 2;
 //错误(日志)控制 {关闭:0 开启:1}
 const LOG_ON = 0;
 //定义存储日志(错误)文件的位置
-define('ERROR_LOG_FILE', WR.'run/logs/'.PJ_NANE.'_err_'.date('Ymd').'.txt');
+define('ERROR_LOG_FILE', WR.'run/logs/'.PJ_NAME.'_err_'.date('Ymd').'.txt');
 
 
 
