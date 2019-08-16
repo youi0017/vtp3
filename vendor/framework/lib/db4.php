@@ -13,6 +13,7 @@
  *   	加入 getStmtNo 不再单个绑定数据，而是以?数字值的形式在执行语句时绑定
  *   	修改 get_stmt 为 getStmtMix 
  *   	更改 get_err 为 getErr
+ *   	20190815114015 删除lastId属性，getLastid直接取值
  * 
  * 在使用dbX时,必需要用 use 引入，如
  	use \Lib\Db4 as DB;
@@ -24,7 +25,6 @@ class Db4
 
 	private $err='ok';
 	private $pdo;
-	private $lastId;
 	
 	//pdo基础设置
 	public function __construct()
@@ -45,12 +45,12 @@ class Db4
 		}		
 	}
 
-	// 取得最后生成的数据ID
-	// 注：insert语句使用
-	// 20190712160347
+	// 取得最后insert的数据ID
+	// 注：必需在insert语句立该使用，否则会被其它语句覆盖
+	// 20190712160347 LM:20190815114051
 	public function getLastid()
 	{
-		return $this->lastId;
+		return $this->pdo->lastInsertId();
 	}
 
 	/*
@@ -113,14 +113,7 @@ class Db4
 		$stmt = $this->$ifun($tblName, $arr);
 
 		//4. 返回结果
-		if($stmt)
-		{
-			//如果ID不是自增，将不能取得lastInsertId 20190425
-			$this->lastId = $this->pdo->lastInsertId();
-			return $stmt->rowCount();	
-		}
-			
-		return false;	 
+		return $stmt ? $stmt->rowCount() : false;
 	}
 
 
@@ -260,16 +253,16 @@ class Db4
 		$key = isset($pgInf['key']) ? $pgInf['key'] : 'pn';
 		
 		//当前页码
-		$pgInf[$key] = isset($_GET[$key]) && $_GET[$key]>1 ? $_GET[$key] : 1;
+		$pgInf['pn'] = isset($_GET[$key]) && $_GET[$key]>1 ? (int)$_GET[$key] : 1;
 
 		//总页数
 		$sql_t=preg_replace('/^select .* from/i', 'select count(*) as t from', $sql);
-		$pgInf['total']=(int)$this->R($sql_t, $row, 0);//总条数
+		$pgInf['tt']=(int)$this->R($sql_t, $row, 0);//总条数
 		//总页数= 向上取整(总条数/显示条数) 
-		$pgInf['tp'] = ceil($pgInf['total']/$pgInf['show']);//总页数
+		$pgInf['tp'] = (int)ceil($pgInf['tt']/$pgInf['show']);//总页数
 		
 		//启始条数 = (页数-1)*显示条数
-		$limit=($pgInf[$key]-1)*$pgInf['show'];
+		$limit=($pgInf['pn']-1)*$pgInf['show'];
 		$limit=" limit {$limit}, {$pgInf['show']}";
 
 		return $this->R($sql.$limit, $row, 2, $rType);

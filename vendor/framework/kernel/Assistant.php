@@ -87,8 +87,19 @@ function cls_file_exists($clsPath, &$p2='')
 	// var_dump($cArr, $p2);exit;
 
 	//$space=strtolower($cArr[0]);
+	// var_dump($cArr, $p2);
 	switch ( $cArr[0] )
 	{
+		//项目
+		case 'ctl':
+		case 'mdl':
+		case 'cls':
+		{
+			$p2 = PJ.$p2.'.php';
+			//var_dump($p2);//exit;
+			break;
+		}
+
 		//系统
 		case $cArr[0]>='kernel':
 		case $cArr[0]>='lib':
@@ -97,23 +108,16 @@ function cls_file_exists($clsPath, &$p2='')
 			//var_dump($p2);
 			break;
 		}
-		//项目
-		case 'ctl':
-		case 'mdl':
-		case 'cls':
-		{
-			$p2 = PJ.$p2.'.php';
-			break;
-		}
+
 		//其它:此处为预留，暂无用20190518
 		default:
 		{
-			//var_dump($clsPath);exit;
+			//var_dump($p2);//exit;
 			break;
 		}
 	}
 
-	// var_dump($p2);
+	//var_dump($p2);
 	$b = is_file($p2);
 	if($b) require_once($p2);
 	else

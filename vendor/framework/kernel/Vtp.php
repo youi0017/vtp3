@@ -113,19 +113,14 @@ class Vtp
 
 		//执行器执行响应(动作)
 		$ctl = '\\ctl\\'.str_replace(',', '\\', $ctl);
+		
 		if(cls_file_exists($ctl)==false)
 		{
 			Rtn::E404('“404 无效控制器 - '.CTL.'”');
 		}
 
-		//var_dump('$ctl');exit;
-		$ctlObj = new $ctl($prm);
-		//var_dump($ctlObj);exit;
-
-		//_index为控制器父类中的万能方法
-		if(!method_exists($ctlObj, $act)) $act = '_index';
 		//将执行结果返回
-		echo call_user_func_array([$ctlObj, $act], $_GET);		
+		echo call_user_func_array([new $ctl($prm), $act], $_GET);		
 	}
 
 }

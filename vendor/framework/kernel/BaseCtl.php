@@ -6,6 +6,7 @@
  * 20160925 加入act()，用于处理不存在的影响器
  * 20170731 更改命名空间为clib
  * 20190519 多向继承模版类
+ * 20190815145428 删除_index方法，加入_call方法
  *
  */
 
@@ -25,8 +26,9 @@ abstract class BaseCtl
 	}
 
 	//影响重置器: 默认影响器
-	public function _index()
+	public function __call($fname, $prms)
 	{
+		// var_dump($fname, $prms);
 		Rtn::e404('无效执行器 - '.ACT);
 	}
 
