@@ -1,7 +1,7 @@
 <?php namespace kernel\error;
 /*
  * 开发者
- *
+ * LM:20190816114512 加入记录错误日志
  */
 
 class VtpErr 
@@ -22,50 +22,23 @@ class VtpErr
 	{
 		//显示控制
 		//1. 错误报告级别(关闭php系统错误/异常显示)
-		//error_reporting(0);
+		error_reporting(0);
 
-		//2. 错误显示控制
-		if(\ERR_ON>0){
-			//开启错误显示
-			// ini_set('display_errors', 1);
-			//php启动错误信息：开(默认关)
-			ini_set('display_startup_errors', 1);
-			
-			//以HTML形式显示到页面：开(默认开)
-			ini_set('html_errors', 1);
-
-			//注册错误捕获
-			self::register();
-		}
-
-		//3. 错误log
-		if(\LOG_ON>0){
-			//开启错误日志
-			ini_set('log_errors', 'On');
-			//严重&编译等 错误写入 日志
-			ini_set('error_log', \ERROR_LOG_FILE);
-			return true;
-		}
-		else{
-			//不开启日志，注意：没有此行 错误日志将写入到 php.ini的错误路径
-			ini_set('log_errors', 'Off');
-			return false;
-		}
+		//2. 注册错误捕获
+		self::register();	
 
 	}
 
-
-	//所有的异常被自动捕获后，均在此处理 20190616
-	/*
-	 * 对在运行中的所有错误和异常的处理接口
+	/**
+	 * 错误与异常处理总入口 
+	 * 注：所有的异常被自动捕获后，均在此处理 20190616
 	 * 注1：此方法不用显式调用，self::register已绑定过，有错误时被自动调用
 	 * 注2：a.有错误时，此方法作为错误的处理方法，接管错误
 	 * 		b.有异常，且未被捕捉时，自动执行本方法
-	 * 
+	 * 20190816115117
 	 **/
 	public static function dealExpt($Expt)
 	{
-		// echo '<h1 color="red">dealExpt 错误总入口</h1>'; 
 		//取得异常的名称 
 		$exptName = get_class($Expt);
 		// var_dump($exptName, $Expt);exit;
@@ -78,24 +51,60 @@ class VtpErr
 				break;
 			}
 			*/
+			// 运算异常
 			case 'kernel\error\Erun':{
-				self::display($Expt);
+				self::errCtrol($Expt);
 				break;
 			}
-
+			// 
 			default:{
 				//非运行异常，均转为运算异常进行处理
 				$Expt=new Erun($Expt->getMessage(), $Expt->getCode(), $Expt->getCode(), $Expt->getFile(), $Expt->getLine());
 				//调用vtpErr显示错误
-				self::display($Expt);
+				self::errCtrol($Expt);
 			}
 
 		}
 		
 	}
 
+	//控制错误:显示与日志 20190816114454
+	public static function errCtrol($expt)
+	{		
+		//3. 错误log
+		if(\LOG_ON>0){
+			//开启错误日志
+			ini_set('log_errors', 'On');
+			//严重&编译等 错误写入 日志
+			ini_set('error_log', \ERROR_LOG_FILE);
+			// 解析并记录错误日志20190814115102
+			// var_dump('记录日志：', $expt);
+			\kernel\Logger::err($expt->getEtype().':'.$expt->getMessage());
+		}
+		else{
+			//不开启日志，注意：没有此行 错误日志将写入到 php.ini的错误路径
+			ini_set('log_errors', 'Off');
+		}
 
-	//erun输出视图，必需由exc调用
+
+		//1. 错误显示控制
+		if(\ERR_ON>0){
+			//开启错误显示
+			// ini_set('display_errors', 1);
+			//php启动错误信息：开(默认关)
+			ini_set('display_startup_errors', 1);
+			
+			//以HTML形式显示到页面：开(默认开)
+			ini_set('html_errors', 1);
+
+			self::display($expt);
+		}
+
+	}
+
+
+
+	//所有错误或异常的输出视图 20190816115009
 	public static function display($expt)
 	{
 		$data=[
@@ -116,7 +125,7 @@ class VtpErr
 		// var_dump($data);exit;
 		//2. 解析数据并载入视图
 		unset($expt);//清除释放内存
-		$view = new \kernel\View;
+		$view = new \kernel\View();
 		$view->assign($data)->display('err/erun.tpl', true);
 		exit;
 	}

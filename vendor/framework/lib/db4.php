@@ -426,16 +426,16 @@ class Db4
 	 * 取得转换后的字串 20180720
 	 	示例：
 		$arr=['id'=>13, 'tit'=>'第13行的标题', 'grp'=>2];
-		$r=DB::get_cvt_string($arr);
+		$r=DB::getKvpString($arr);
 		var_dump($r);
 	 */
-	public static function get_cvt_string(array $arr, $mk=',')
+	public static function getKvpString(array $arr, $mk=',')
 	{
 		$r=[];
 		
 		foreach( $arr as $k => $v )
 		{
-			$r[]=" `$k`=:$k ";
+			$r[]=" `{$k}`=:{$k} ";
 		}
 
 		return implode($mk, $r);		
