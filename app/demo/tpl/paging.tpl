@@ -5,7 +5,7 @@
 <title>欢迎来到VTP-PHP框架</title>
 <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <base href="/<?=W3;?>/" target="_self">
-<link type="text/css" href="static/css/bootstrap.min.css" rel="stylesheet" />
+<link type="text/css" href="/static/css/bootstrap.min.css" rel="stylesheet" />
 <script type="text/javascript" src=""></script>
 <style type="text/css">
 body{margin:15px auto;width:100%;max-width:960px;}

@@ -3,15 +3,21 @@
 <head>
 <meta charset="utf-8">
 <title>欢迎来到VTP-PHP框架</title>
-<base href="/<?=W3;?>/" target="_self">
-<link type="text/css" href="static/css/bootstrap.min.css" rel="stylesheet" />
+<link type="text/css" href="/static/css/bootstrap.min.css" rel="stylesheet" />
 <script type="text/javascript" src=""></script>
 <style type="text/css">
-body{margin:15px auto;width:100%;max-width:960px;}
+html{background-color:#EFEFF4;}
+body{margin:10px auto; padding:0 15px 15px; max-width:720px; background-color:#FFF;}
+
 p{margin:20px 0;text-indent:2em;}
+.qrcode{text-align:right; }
+.qrcode img{width:150px;}
 </style>
 </head>
 <body>
+
+<?php include '_header.tpl';?>
+
 <h2>欢迎来到VTP-PHP框架</h2>
 <hr/>
 <p>
@@ -24,6 +30,14 @@ VTP/PHP是一个简单快速的PHP VC框架，由 <?=$author;?> 先生于 <?=$cr
 <p>
 # 其特点是：安全、轻量、灵活。
 </p>
+
+<footer>
+	<div class="qrcode">
+		<?php include '_urlQrcode.tpl';?>
+	</div>
+</footer>
+
+<script src="/static/js/axios.js"></script>
 
 </body>
 </html>

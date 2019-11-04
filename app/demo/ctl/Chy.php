@@ -1,12 +1,15 @@
 <?php namespace ctl;
-use \kernel\Err;
 use \kernel\Rtn;
 use \kernel\Request;
 use \lib\DB4 as DB;
 use Intervention\Image\ImageManagerStatic as Image;
 
-
-class Chy extends \kernel\BaseCtl
+/*
+ * chy是所有模块的综合展示入口
+ * 注：如模块有更多应用时，再独立创建控制器展示
+ * 20190926160813
+ */
+class Chy extends \kernel\Control
 {
 	public function index()
 	{
@@ -24,10 +27,10 @@ class Chy extends \kernel\BaseCtl
 		*/
 
 		// 手动调用404页
-		\kernel\Rtn::e404();	
+		// \kernel\Rtn::e404();	
 		
 		//输出一个轻型错误页
-		Err::alert( new \exception('发出错误') );
+		Rtn::alert( new \exception('发出错误') );
 
 		//运行中的错误与异常
 		//echo xxx();//调用不存在的函数
@@ -44,7 +47,12 @@ class Chy extends \kernel\BaseCtl
 	*/
 	public function request()
 	{
-		$rq = new Request('json');
+		// 自实例化调用Request (推荐)
+		// Request::mine()->get('mailxxx', 'string')->isEmail()->val();
+		// exit;
+
+		// 手动实例化调用request（也可）
+		$rq = new Request();
 		$mail = $rq->get('mail', 'string')->isEmail()->val();
 		var_dump($mail);exit;
 		$phone = $rq->get('phone', 'string')->isMobile()->val();
@@ -69,16 +77,16 @@ class Chy extends \kernel\BaseCtl
 	public function paging()
 	{
 		//1.从数据库中取数据
-		$pg=['key'=>'page', 'show'=>8];
+		$pg=['key'=>'page', 'show'=>15];
 		$rows = DB::mine()->P('select * from t_myh_lishi where id>? and id<? order by id desc', [1000, 2000], $pg);
-		var_dump($rows, $pg);
+		// var_dump($rows, $pg); exit;
 
 		//2.载入分页模块
 		vendor('stefangabos-zebra_pagination');
 		//页码对象
 		$paging = new \Zebra_Pagination();
 		//设置总条数
-		$paging->records($pg['total']);
+		$paging->records($pg['tt']);
 		//设置每页显示条数
 		$paging->records_per_page($pg['show']);
 		//设置上/下页符号
@@ -124,12 +132,12 @@ class Chy extends \kernel\BaseCtl
 
 
 	/**
-	 * 邮箱库使用案例（vtp-email已封装）
+	 * 邮箱库使用案例（vtp-mail已封装）
 	 * chy 20190525
 	 */
-	public function email()
+	public function mail()
 	{
-		$cmail = new \lib\Email();
+		$cmail = new \lib\Mail();
 		//var_dump($cmail);exit;
 		$b = $cmail->sendMail(['2829281863@qq.com'=>'航一'], '今日天气', '15到27度，4到5级风');
 		

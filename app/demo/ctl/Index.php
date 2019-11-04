@@ -2,13 +2,15 @@
 
 use \kernel\Rtn;
 
-class Index extends \kernel\BaseCtl
+class Index extends \kernel\Control
 {
 	//视图解析
 	public function index()
 	{
+
+		//return '你好，周一';
 		//直接返回内容
-		return '<h1>欢迎来到Index主页</h1>';
+		//return '<h1>欢迎来到Index主页</h1>';
 		
 		//解析数据视图
 		$this->assign(['author'=>'Yuhang Chu', 'creatAt'=>'2013年9月']);
@@ -18,8 +20,10 @@ class Index extends \kernel\BaseCtl
 	//输出与显示
 	public function shErr()
 	{
+		//echo $ax;
+
 		//错误页面输出
-		// Rtn::e404();
+		 Rtn::e404();
 		// Rtn::e403();
 		// Rtn::e500();
 		
@@ -27,7 +31,7 @@ class Index extends \kernel\BaseCtl
 		// Rtn::alert(new \Exception('我的自定义错误输出'));
 
 		// json格式[成功]时的输出
-		// Rtn::okk();
+		Rtn::okk();
 		// json格式[失败]时的输出
 		Rtn::err('用户名或密码错误', '-1', 401);
 	}
