@@ -12,6 +12,7 @@
 
 class Request
 {
+	use \Kernel\traits\Baselib;
 	const debug=true;//调试控制：true开启，false关闭
 	
 	protected $val;//值

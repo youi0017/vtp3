@@ -6,7 +6,7 @@
  *
  * chy
  */
-class Email
+class Mail
 {
 	use \Kernel\traits\Baselib;
 

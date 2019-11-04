@@ -23,7 +23,7 @@ trait Templete
 		if(is_array($vals)){
 			$this->dArr = array_merge($this->dArr, $vals);
 		}
-		elseif(isset($v) && is_string($vals))
+		elseif(is_string($vals))
 		{
 			$this->dArr[$vals]=$v;
 		}
@@ -47,8 +47,9 @@ trait Templete
 		$fsite = self::fsite($tpl, $isSysView);
 		if(is_file($fsite)==false)
 		{
-			throw new \Exception("编译文件 {$tpl} 不存在！");
-			exit;
+			\kernel\Rtn::alert(new \Exception("编译文件 {$tpl} 不存在！"), 503);
+			//throw new \Exception("编译文件 {$tpl} 不存在！");
+			//exit;
 		}
 
 		//导出数组变量，并解析视图

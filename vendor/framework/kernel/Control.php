@@ -10,7 +10,7 @@
  *
  */
 
-abstract class BaseCtl
+abstract class Control
 {
 	//引入模版类
 	use Traits\Templete;
